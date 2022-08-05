@@ -1,8 +1,13 @@
+word_field = document.getElementById("word-field");
+
 prefixes_table = document.getElementById("prefixes");
 suffixes_table = document.getElementById("suffixes");
 
 const analyze = () => {
-	fetch("http://morphology-etymology.herokuapp.com/analyze?word=backpack")
+	word = word_field.value;
+	word_field.value = "";
+
+	fetch(`http://morphology-etymology.herokuapp.com/analyze?word=${word}`)
 		.then((response) => response.json())
 		.then((data) => {
 			populate_fields(data.prefixes, data.root, data.suffixes);
