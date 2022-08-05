@@ -7,7 +7,7 @@ const analyze = () => {
 	word = word_field.value;
 	word_field.value = "";
 
-	fetch(`http://morphology-etymology.herokuapp.com/analyze?word=${word}`)
+	fetch(`https://morphology-etymology.herokuapp.com/analyze?word=${word}`)
 		.then((response) => response.json())
 		.then((data) => {
 			populate_fields(data.prefixes, data.root, data.suffixes);
