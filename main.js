@@ -1,10 +1,13 @@
 word_field = document.getElementById("word-field");
 
+word_header = document.getElementById("word-header");
 prefixes_table = document.getElementById("prefixes");
 suffixes_table = document.getElementById("suffixes");
 
 const analyze = () => {
 	word = word_field.value;
+
+	word_header.innerText = `Word: ${word}`;
 
 	fetch(`https://morphology-etymology.herokuapp.com/analyze?word=${word}`)
 		.then((response) => response.json())
