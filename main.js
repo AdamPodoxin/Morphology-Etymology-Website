@@ -5,11 +5,11 @@ suffixes_table = document.getElementById("suffixes");
 
 const analyze = () => {
 	word = word_field.value;
-	word_field.value = "";
 
 	fetch(`https://morphology-etymology.herokuapp.com/analyze?word=${word}`)
 		.then((response) => response.json())
 		.then((data) => {
+			word_field.value = "";
 			populate_fields(data.prefixes, data.root, data.suffixes);
 		});
 };
