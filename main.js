@@ -9,7 +9,7 @@ const analyze = () => {
 
 	word_header.innerText = `Word: ${word}`;
 
-	fetch(`https://morphology-etymology.herokuapp.com/analyze?word=${word}`)
+	fetch(`https://morphology-etymology-analyzer.fly.dev/analyze?word=${word}`)
 		.then((response) => response.json())
 		.then((data) => {
 			word_field.value = "";
