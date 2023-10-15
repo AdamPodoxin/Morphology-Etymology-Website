@@ -2,7 +2,7 @@
 	type MorphemeWithEtymology = {
 		text: string;
 		type: 'root' | 'prefix' | 'suffix';
-		etymology: string;
+		etymology: string | null;
 	};
 
 	type Analysis = {
@@ -68,21 +68,36 @@
 	<p>Root(s):</p>
 	<ul>
 		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'root') as morpheme}
-			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+			<li>
+				<b>{morpheme.text}</b>
+				{#if !!morpheme.etymology}
+					: {morpheme.etymology}
+				{/if}
+			</li>
 		{/each}
 	</ul>
 
 	<p>Prefixes:</p>
 	<ul>
 		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'prefix') as morpheme}
-			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+			<li>
+				<b>{morpheme.text}</b>
+				{#if !!morpheme.etymology}
+					: {morpheme.etymology}
+				{/if}
+			</li>
 		{/each}
 	</ul>
 
 	<p>Suffixes:</p>
 	<ul>
 		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'suffix') as morpheme}
-			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+			<li>
+				<b>{morpheme.text}</b>
+				{#if !!morpheme.etymology}
+					: {morpheme.etymology}
+				{/if}
+			</li>
 		{/each}
 	</ul>
 {/if}
