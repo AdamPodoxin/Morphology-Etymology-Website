@@ -7,7 +7,7 @@
 
 	type Analysis = {
 		word: string;
-		etymology: string;
+		etymology: string | null;
 		morphemes_with_etymology: MorphemeWithEtymology[];
 	};
 
@@ -58,7 +58,31 @@
 	<h3>Not Found</h3>
 {:else if analysisResponse.status === 'error'}
 	<h3>There was an error analyzing this word</h3>
-{:else if analysisResponse.status === 'success'}
+{:else if analysisResponse.status === 'success' && !!analysisResponse.data}
 	<h3>Result for "{analysisResponse.data?.word}":</h3>
-	<p>Etymology: {analysisResponse.data?.etymology}</p>
+
+	{#if !!analysisResponse.data?.etymology}
+		<p>Etymology: {analysisResponse.data?.etymology}</p>
+	{/if}
+
+	<p>Root(s):</p>
+	<ul>
+		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'root') as morpheme}
+			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+		{/each}
+	</ul>
+
+	<p>Prefixes:</p>
+	<ul>
+		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'prefix') as morpheme}
+			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+		{/each}
+	</ul>
+
+	<p>Suffixes:</p>
+	<ul>
+		{#each analysisResponse.data.morphemes_with_etymology.filter((morpheme) => morpheme.type === 'suffix') as morpheme}
+			<li><b>{morpheme.text}</b> : {morpheme.etymology}</li>
+		{/each}
+	</ul>
 {/if}
